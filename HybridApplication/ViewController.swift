@@ -11,10 +11,13 @@ import UIKit
 class ViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var webview: UIWebView!
+    @IBOutlet weak var input: UITextField!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        input.text = "www.uni-stuttgart.de"
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,9 +25,32 @@ class ViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func loadWebsitePressed(_ sender: Any) {
-        webview.loadRequest(URLRequest(url: URL(string: "https://www.google.de")!))
+    
+    @IBAction func loadWebSitePressed(_ sender: Any) {
+        var url = input.text
+        if url != "" && url != nil {
+            if (url?.hasPrefix("www"))! {
+                url = "https://\(url!)"
+            }
+            
+            webview.loadRequest(URLRequest(url: URL(string: url!)!))
+        }
     }
+    
+    @IBAction func reloadPage(_ sender: Any) {
+        webview.reload()
+    }
+    
+    @IBAction func goForwardPressed(_ sender: Any) {
+        webview.goForward()
+    }
+    
+    
+    @IBAction func goBackwardsPressed(_ sender: Any) {
+        webview.goBack()
+    }
+    
+    
     
     
     
